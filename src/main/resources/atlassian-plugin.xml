@@ -20,5 +20,22 @@
 
         <context>jiracustomplugin</context>
     </web-resource>
+    <web-resource name="Resources" key="resources">
+        <resource name="linkpopup.js" type="download" location="/js/linkpopup.js"/>
+        <context>atl.general</context>
+    </web-resource>
+    <web-item name="Link Issue" i18n-name-key="link-issue.name" key="link-issue" section="operations-top-level" weight="1">
+        <description key="link-issue.description">The Link Issue Plugin</description>
+        <label key="link-issue.label"/>
+        <link linkId="add-watchers">/AddWatchers!default.jspa?id=${issue.id}</link>
+    </web-item>
+    <webwork1 key="add-watchers" name="Add Watchers" i18n-name-key="add-watchers.name">
+        <description key="add-watchers.description">The Add Watchers Plugin</description>
+        <actions>
+            <action name="com.atlassian.devplugins.jira.webwork.AddWatchers" alias="AddWatchers">
+                <view name="input">/templates/add-watchers.vm</view>
+            </action>
+        </actions>
+    </webwork1>
     
 </atlassian-plugin>
