@@ -1,35 +1,67 @@
-<h2 class="dialog-title">Link</h2>
+#* @vtlmacrolibrary path="../../../../../../../jira-core/src/main/resources/templates/plugins/jira/issuelinks/macros.vm" *#
+#* @vtlvariable name="textutils" type="com.opensymphony.util.TextUtils" *#
+#* @vtlvariable name="urlcodec" type="com.atlassian.jira.util.JiraUrlCodec" *#
+#* @vtlvariable name="keyboardShortcutManager" type="com.atlassian.jira.plugin.keyboardshortcut.KeyboardShortcutManager" *#
+#* @vtlvariable name="jirautils" type="com.atlassian.jira.util.JiraUtils" *#
+#* @vtlvariable name="req" type="javax.servlet.http.HttpServletRequest" *#
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+#* @vtlvariable name="action" type="com.atlassian.jira.plugin.link.remotejira.LinkJiraIssue" *#
+#* @vtlvariable name="webResourceManager" type="com.atlassian.plugin.webresource.WebResourceManager" *#
+<html>
+<head>
+    #issueLinkHeader ($action $i18n $webResourceManager $keyboardShortcutManager)
+</head>
+<body>
+    <form action="AddWatchers.jspa" method="post" id="link-jira-issue" class="aui dnd-attachment-support">
+        <div class="form-body">
 
-<form class="aui" action="AddWatchers.jspa" method="post">
+            <div class="field-group">
+                                    <label for="jira-app-link">This issue</label>
+                                    <select id="jira-app-link" class="select" name="jiraAppId">
+                                        <option value="">${textutils.htmlEncode($action.internalHostApplication.name)}</option>
+                                        #foreach ($jiraAppLink in ${action.jiraAppLinks})
+                                            <option value="${jiraAppLink.id}" #if ($jiraAppLink.id.toString() == ${action.jiraAppId}) selected="selected" #end>${textutils.htmlEncode($jiraAppLink.name)}</option>
+                                        #end
+                                    </select>
+                                    #issueLinkFieldError ($action "jiraAppId" $textutils)
+                                    #appLinksAuthenticationMessage ($action 'com.atlassian.applinks.api.application.jira.JiraApplicationType')
+            </div>
+            <div class="issue-link-oauth-toggle #if (${action.jiraAppLinks.empty}) only-local-server #end" >
 
-    <input type="hidden" name="atl_token" value="${atl_token}" />
-    <input type="hidden" name="id" value="$action.id" />
 
-    <div class="content-body">
+                <div class="field-group">
+                    <label for="jira-issue-keys">${i18n.getText("linkjiraissue.issuekey")}</label>
+                    <select class="aui-field-issuepicker hidden" multiple="multiple" name="issueKeys" id="jira-issue-keys"
+                            #if (${action.currentJQL})data-ajax-options.data.current_jql="${action.currentJQL}"#end
+                            data-popup-link-message="[Select Issue]"
+                            data-popup-width="620"
+                            data-popup-height="500"
+                            data-remove-on-un-select="true"
+                            data-ajax-options.query="true"
+                            data-ajax-options.url="${req.contextPath}/rest/api/2/issue/picker"
+                            data-ajax-options.data.current-issue-key="$!{action.issueObject.key}"
+                            data-ajax-options.data.show-sub-tasks="true"
+                            data-ajax-options.data.show-sub-task-parent="true"
+                            data-ajax-options.data.app-id="">
+                        #foreach ($issueKey in ${action.issueKeys})
+                            <option selected="selected" value="$textutils.htmlEncode($issueKey)">$textutils.htmlEncode($issueKey)</option>
+                        #end
+                    </select>
+                    <span class="issue-link-search-link">
+                        ${i18n.getText("common.words.or")}
+                        <a href="#" class="remote-jira-search-trigger" id="remote-jira-issue-search">${i18n.getText("linkjiraissue.search.for.an.issue")}</a>
+                    </span>
+                    <div class="description">${i18n.getText("linkjiraissue.issuekey.desc")}</div>
+                    #issueLinkFieldError ($action "issueKeys" $textutils)
+                </div>
 
-        #if ($action.hasAnyErrors())
-        <div class="form-message error">
-            #foreach ($error in $action.getErrorMessages())
-                <p>$textutils.htmlEncode(${error})</p>
-            #end
-            #foreach ($error in $action.errors)
-                <p>$textutils.htmlEncode(${error})</p>
-            #end
+
+            </div>
+
         </div>
-        #end
 
-        <div class="field-group">
-            <label>Issues <span class="aui-icon icon-required"></span></label>
-            &nbsp;<textarea name="watcherUserNames" class="textarea long-field"></textarea>
-            <div class="description">Select Issues from search as summary</div>
-        </div>
-    </div>
 
-    <div class="buttons-container content-footer">
-        <div class="buttons">
-            <a href="#" class="cancel">$i18n.getText('summarysearch.common.cancel')</a>
-            <input class="button" type="submit" value="$i18n.getText('summarysearch.common.add')" />
-        </div>
-    </div>
 
-</form>
+    </form>
+</body>
+</html>

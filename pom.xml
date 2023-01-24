@@ -102,6 +102,13 @@
             <version>1.8.5</version>
             <scope>test</scope>
         </dependency>
+        <!--<dependency>
+            <groupId>com.atlassian.jira</groupId>
+            <artifactId>jira-plugins</artifactId>
+            <version>7.13.0</version>
+            <scope>provided</scope>
+        </dependency>-->
+
     </dependencies>
 
     <build>
