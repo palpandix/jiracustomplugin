@@ -12,13 +12,57 @@
     
     <!-- add our web resources -->
     <web-resource key="jiracustomplugin-resources" name="jiracustomplugin Web Resources">
+        <description key="${atlassian.plugin.key}.resources.description">
+            AUI plugin and png thumbnails</description>
         <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>com.atlassian.auiplugin:jquery</dependency>
+        <dependency>com.atlassian.auiplugin:jquery-ui-other</dependency>
+        <dependency>com.atlassian.auiplugin:aui-select2</dependency>
         
         <resource type="download" name="jiracustomplugin.css" location="/css/jiracustomplugin.css"/>
         <resource type="download" name="jiracustomplugin.js" location="/js/jiracustomplugin.js"/>
         <resource type="download" name="images/" location="/images"/>
+        <resource type="download" name="scriptDisableHide" location="/customScript/scriptDisableHide.js"/>
 
         <context>jiracustomplugin</context>
     </web-resource>
+    <customfield-type name="Select 2 multi CF"
+                      i18n-name-key="select-2-multi-cf.name"
+                      key="select-2-multi-cf"
+                      class="com.atlassian.devplugins.jiracustomplugin.customfields.Select2multiCF">
+        <description key="select-2-multi-cf.description"/>
+        <resource name="view" type="velocity"
+                  location="/templates/viewMulti.vm"/>
+        <resource name="edit" type="velocity"
+                  location="/templates/editMulti.vm"/>
+        <valid-searcher package="com.atlassian.jira.plugin.system.customfieldtypes"
+                        key="multiselectsearcher"/>
+    </customfield-type>
+
+    <customfield-type name="Select 2 single CF"
+                      i18n-name-key="select-2-single-cf.name"
+                      key="select-2-single-cf"
+                      class="com.atlassian.devplugins.jiracustomplugin.customfields.Select2singleCF">
+        <description key="select-2-single-cf.description"/>
+        <resource name="view" type="velocity"
+                  location="/templates/viewSingle.vm"/>
+        <resource name="edit" type="velocity"
+                  location="/templates/editSingle.vm"/>
+        <valid-searcher package="com.atlassian.jira.plugin.system.customfieldtypes"
+                        key="multiselectsearcher"/>
+    </customfield-type>
+
+    <customfield-type name="Select 2 Version single CF"
+                      i18n-name-key="select-2-version-single-cf.name"
+                      key="select-2-version-single-cf"
+                      class="com.atlassian.devplugins.jiracustomplugin.customfields.Select2versionSingleCF">
+        <description key="select-2-version-single-cf.description"/>
+        <resource name="view" type="velocity"
+                  location="/templates/viewVersionSingle.vm"/>
+        <resource name="edit" type="velocity"
+                  location="/templates/editVersionSingle.vm"/>
+        <valid-searcher package="com.atlassian.jira.plugin.system.customfieldtypes"
+                        key="versionsearcher"/>
+    </customfield-type>
     
 </atlassian-plugin>

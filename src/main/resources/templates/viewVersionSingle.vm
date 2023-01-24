@@ -1,0 +1,44 @@
+<div class="Select2-Custom-$customField.id" id="Select2-Custom-$customField.id">
+	#disable_html_escaping()
+    <script type="text/javascript">
+        (function ($) {
+            AJS.$("#$customField.id option[value='-1']").remove(); ##Removes the default value "None"
+            function convertMulti(id) {
+                if (AJS.$('#' + id + "-textarea").length == 0) {
+                    AJS.$('#' + id).auiSelect2();
+                    ##AJS.$(".select-2-single-cf").auiSelect2();
+                }
+            }
+
+            AJS.toInit(function () {
+                convertMulti("$customField.id");
+            })
+
+            JIRA.bind(JIRA.Events.NEW_CONTENT_ADDED, function (e, context) {
+                AJS.$("#$customField.id option[value='-1']").remove();
+                convertMulti("$customField.id");
+            });
+        })(AJS.$);
+    </script>
+	#if ($value)
+	    <div class="shorten" id="${customField.id}-field">
+	        #foreach ($option in $value)
+	            #if ($displayParameters && $displayParameters.nolink)
+	                $textutils.htmlEncode($option.name)
+	                #commaonly($value)
+	            #else
+	                <a href="$requestContext.baseUrl/issues/?jql=project%3D%22$velocityhelper.urlencode($option.projectObject.key)%22%20AND%20%22$velocityhelper.urlencode($customField.name)%22%3D%22$velocityhelper.urlencode($option.name)%22%20ORDER%20BY%20priority%20ASC" title="$textutils.htmlEncode($option.name)#if($option.description && $option.description != '') - $textutils.htmlEncode($option.description)#end">
+	                    $textutils.htmlEncode($option.name)
+	                </a>
+	                #if ($displayParameters.get('showProject'))
+	                    <small>
+	                        [<strong>$i18n.getText('common.concepts.project'):</strong>
+	                        ${textutils.htmlEncode($option.projectObject.name)}]
+	                    </small>
+	                #end
+	                #commaonly($value)
+	            #end
+	        #end
+	    </div>
+	#end
+</div>
