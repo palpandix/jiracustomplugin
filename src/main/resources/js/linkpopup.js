@@ -5,4 +5,9 @@ jQuery(function () {
         trigger: "#add-watchers"
     });
 
+    /*new AJS.FormPopup({
+        id: "vm-introduction-dialog",
+        trigger: "#vm-introduction"
+    });*/
+
 });

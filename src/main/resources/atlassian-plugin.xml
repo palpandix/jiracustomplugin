@@ -27,8 +27,14 @@
     <web-item name="Link Issue" i18n-name-key="link-issue.name" key="link-issue" section="operations-top-level" weight="1">
         <description key="link-issue.description">The Link Issue Plugin</description>
         <label key="link-issue.label"/>
-        <link linkId="add-watchers">/AddWatchers!default.jspa?id=${issue.id}</link>
+        <link linkId="add-watchers">/AddWatchers!default.jspa?id=${issue.id}&amp;name=${issue}&amp;project=${project.key}</link>
     </web-item>
+    <!--<web-item name="Link VM" i18n-name-key="link-vm.name" key="link-vm" section="operations-top-level" weight="1">
+        <description key="link-vm.description">The Link VM Plugin</description>
+        <label key="link-vm.label"/>
+        <link linkId="vm-introduction">/Book!default.jspa?id=${issue.id}</link>
+
+    </web-item>-->
     <webwork1 key="add-watchers" name="Add Watchers" i18n-name-key="add-watchers.name">
         <description key="add-watchers.description">The Add Watchers Plugin</description>
         <actions>
@@ -37,5 +43,13 @@
             </action>
         </actions>
     </webwork1>
+    <!--<webwork1 key="vm-introduction" name="VM Introduction" i18n-name-key="vm-introduction.name">
+        <description key="vm-introduction.description">The VM Introduction Plugin</description>
+        <actions>
+            <action name="com.atlassian.devplugins.jira.webwork.Book" alias="Book">
+                <view name="input">/templates/introduction.vm</view>
+            </action>
+        </actions>
+    </webwork1>-->
     
 </atlassian-plugin>

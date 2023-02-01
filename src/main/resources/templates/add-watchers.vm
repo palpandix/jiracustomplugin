@@ -14,6 +14,9 @@
 <body>
     <form action="AddWatchers.jspa" method="post" id="link-jira-issue" class="aui dnd-attachment-support">
         <div class="form-body">
+            <!--<div class="field-group">
+                <label>requestContext ${requestContext.getRequestParameters().getQueryString()}</label>
+            </div>-->
 
             <div class="field-group">
                                     <label for="jira-app-link">This issue</label>
