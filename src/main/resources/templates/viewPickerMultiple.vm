@@ -1,0 +1,36 @@
+##	#requireResourcesForContext("select2cfcontext")
+##	$webResourceManager.requireResourcesForContext("select2cfcontext")
+##	#requireResource("com.atlassian.devplugins:select2cf-web-resources-key")
+##	#requireResource("com.atlassian.devplugins:resources")
+##    $webResourceManager.requireResource("com.atlassian.devplugins:select2cf-web-resources-key")
+##    $webResourceManager.requireResource("com.atlassian.devplugins:resources")
+<div class="Select2-Custom-$customField.id" id="Select2-Custom-$customField.id">
+    <script type="text/javascript">
+        (function ($) {
+            AJS.$("#jira-issue-keys.id option[value='-1']").remove(); ##Removes the default value "None"
+            function convertMulti(id) {
+                if (AJS.$('#' + id + "-textarea").length == 0) {
+                    AJS.$('#' + id).auiSelect2();
+                    ##AJS.$(".aui-field-issuepicker").auiSelect2();
+                }
+            }
+
+            AJS.toInit(function () {
+                convertMulti("jira-issue-keys.id");
+            })
+
+            JIRA.bind(JIRA.Events.NEW_CONTENT_ADDED, function (e, context) {
+                AJS.$("#jira-issue-keys.id option[value='-1']").remove();
+                convertMulti("$customField.id");
+            });
+        })(AJS.$);
+    </script>
+    #if( $value )
+        <span
+                style="word-break: normal;#if( $value.deleted )text-decoration:line-through;#end">
+            $value.value
+        </span>
+    #end
+    ##$!value.value
+</div>
+

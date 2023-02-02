@@ -64,5 +64,18 @@
         <valid-searcher package="com.atlassian.jira.plugin.system.customfieldtypes"
                         key="versionsearcher"/>
     </customfield-type>
+
+    <customfield-type name="Issue Picker Multiple CF"
+                      i18n-name-key="issue-picker-multiple-cf.name"
+                      key="issue-picker-multiple-cf"
+                      class="com.atlassian.devplugins.jiracustomplugin.customfields.IssuePickerMultipleCF">
+        <description key="issue-picker-multiple-cf.description"/>
+        <resource name="view" type="velocity"
+                  location="/templates/viewPickerMultiple.vm"/>
+        <resource name="edit" type="velocity"
+                  location="/templates/editPickerMultiple.vm"/>
+        <valid-searcher package="com.atlassian.jira.plugin.system.customfieldtypes"
+                        key="multiselectsearcher"/>
+    </customfield-type>
     
 </atlassian-plugin>

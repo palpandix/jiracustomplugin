@@ -1,0 +1,47 @@
+<div class="Select2-Custom-$customField.id" id="Select2-Custom-$customField.id">
+    #disable_html_escaping()
+    #customControlHeader ($action $customField.id $customField.name
+        $fieldLayoutItem.required $displayParameters $auiparams)
+    ## $webResourceManager.requireResource("scriptDisableHide")
+    <script type="text/javascript">
+        AJS.toInit(function () {
+            if ('MutationObserver' in window) {
+                if (!('jira_editSingleObserver' in window)) {
+                    window.jira_editSingleObserver = new MutationObserver(function(records) {
+                        for (let record of records) {
+                            for (let addedNode of record.addedNodes) {
+                                AJS.$(".aui-field-issuepicker", addedNode).auiSelect2();
+                            }
+                        }
+                    })
+                    window.jira_editSingleObserver.observe(document.body, {
+                        attributes: false,
+                        childList: true,
+                        subtree: true
+                    })
+                    AJS.$(".aui-field-issuepicker").auiSelect2();
+                }
+            } else {
+                AJS.$(".aui-field-issuepicker").auiSelect2();
+            }
+        });
+    </script>
+
+    <select class="aui-field-issuepicker hidden" multiple="multiple" name="issueKeys" id="jira-issue-keys"
+                #if (${action.currentJQL})data-ajax-options.data.current_jql="${action.currentJQL}"#end
+                data-popup-link-message="[Select Issue]"
+                data-popup-width="620"
+                data-popup-height="500"
+                data-remove-on-un-select="true"
+                data-ajax-options.query="true"
+                data-ajax-options.url="${req.contextPath}/rest/api/2/issue/picker"
+                data-ajax-options.data.current-issue-key="$!{action.issueObject.key}"
+                data-ajax-options.data.show-sub-tasks="true"
+                data-ajax-options.data.show-sub-task-parent="true"
+                data-ajax-options.data.app-id="">
+            #foreach ($issueKey in ${action.issueKeys})
+                <option selected="selected" value="$textutils.htmlEncode($issueKey)">$textutils.htmlEncode($issueKey)</option>
+            #end
+    </select>
+
+</div>
