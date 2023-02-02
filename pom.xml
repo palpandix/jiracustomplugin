@@ -159,6 +159,7 @@
                     -->
                     <jvmArgs>-Xmx4g</jvmArgs>
                     <enableQuickReload>true</enableQuickReload>
+                    <!--<productDataPath>${project.basedir}/src/test/resources/generated-test-resources.zip</productDataPath>-->
                     <systemPropertyVariables><!-- missing in the generated pom.xml altogether, not sure why -->
                         <atlassian.dev.mode>false</atlassian.dev.mode><!-- default: true -->
                         <atlassian.disable.caches>false</atlassian.disable.caches><!-- default: true when the one above is true -->
