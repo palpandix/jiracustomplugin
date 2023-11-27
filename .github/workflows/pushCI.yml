@@ -6,9 +6,9 @@ on:
       - feature/github-test
 
 env:
-  http_proxy: http://proxy-dmz.intel.com:911/
-  https_proxy: http://proxy-dmz.intel.com:912/
-  no_proxy: intel.com
+  # http_proxy: http://proxy-dmz.intel.com:911/
+  # https_proxy: http://proxy-dmz.intel.com:912/
+  # no_proxy: intel.com
 
 jobs:
   Build-UnitTest-Run-Actions:
