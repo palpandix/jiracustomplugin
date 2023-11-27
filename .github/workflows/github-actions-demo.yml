@@ -18,3 +18,7 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Run unit test
+        run: |
+          atlas-mvn package
+      - run: echo "🍏 This job's status is ${{ job.status }}."
