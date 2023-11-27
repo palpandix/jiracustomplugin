@@ -5,7 +5,7 @@ on:
     branches:
       - feature/github-test
 
-env:
+# env:
   # http_proxy: http://proxy-dmz.intel.com:911/
   # https_proxy: http://proxy-dmz.intel.com:912/
   # no_proxy: intel.com
