@@ -20,5 +20,5 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Run unit test
         run: |
-          atlas-mvn package
+          atlas-unit-test
       - run: echo "🍏 This job's status is ${{ job.status }}."
